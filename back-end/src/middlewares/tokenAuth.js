@@ -1,6 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const { CustomError } = require('../../utils/CustomError');
-const { token } = require('../../utils/token/Token');
+const { token } = require('../../utils/Token');
 
 class TokenAuth {
   constructor(invalid = StatusCodes.BAD_REQUEST, notFound = StatusCodes.NOT_FOUND) {
