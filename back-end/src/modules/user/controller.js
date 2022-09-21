@@ -1,6 +1,5 @@
-const { UsersService } = require('./service');
 const { StatusCodes } = require('http-status-codes');
-
+const { UsersService } = require('./service');
 
 class UsersController {
   constructor(usersService = new UsersService()) {

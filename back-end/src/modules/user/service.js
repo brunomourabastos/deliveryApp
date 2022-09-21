@@ -1,5 +1,5 @@
 const { UsersImplementation } = require('./implementation');
-const { token } = require('../../../utils/token/Token');
+const { token } = require('../../../utils/Token');
 const { CustomError } = require('../../../utils/CustomError');
 const { hashGenerator } = require('../../../utils/hashGenerator');
 
@@ -9,7 +9,7 @@ class UsersService {
   }
 
   async loginUser(userInfo) {
-      const hashedUser = generateHash(userInfo);
+      const hashedUser = hashGenerator(userInfo);
 
       const foundUser = await this.userImplementation.loginUser(hashedUser);
 
@@ -31,7 +31,7 @@ class UsersService {
   }
 
   async registerCommonUser(userRegistrationInfo) {
-      const hashedUser = generateHash(userRegistrationInfo);
+      const hashedUser = hashGenerator(userRegistrationInfo);
 
       hashedUser.role = 'customer';
 
@@ -50,7 +50,7 @@ class UsersService {
   }
 
   async registerAdminUser(userRegistrationInfo) {
-      const hashedUser = generateHash(userRegistrationInfo);
+      const hashedUser = hashGenerator(userRegistrationInfo);
 
       const createdUser = await this
         .userImplementation.registerAdminUser(hashedUser);

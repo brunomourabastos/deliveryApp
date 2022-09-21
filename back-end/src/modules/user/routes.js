@@ -1,6 +1,7 @@
 const express = require('express');
 const { usersController } = require('./controller');
-const { commonRegValidation } = require('../../middlewares/commonRegValidation/commonRegValidation');
+const {
+  commonRegValidation } = require('../../middlewares/commonRegValidation/commonRegValidation');
 const { adminValidation } = require('../../middlewares/adminValidation/adminValidation');
 const { loginValidation } = require('../../middlewares/loginValidation/loginValidation');
 const { tokenAuth } = require('../../middlewares/tokenAuth');

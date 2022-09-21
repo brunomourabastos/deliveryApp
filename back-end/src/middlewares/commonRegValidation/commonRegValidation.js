@@ -20,7 +20,7 @@ class CommonRegisterValidation {
   }
 }
 
-const commonRegValidation = new CommonRegisterValidation(commonRegSchema)
+const commonRegValidation = new CommonRegisterValidation(commonRegSchema);
 
 module.exports = {
   commonRegValidation,

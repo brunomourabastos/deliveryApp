@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { read } = require('../fs/read');
+const { read } = require('./read');
 
 class Token {
     constructor(secret = read()) {

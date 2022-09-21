@@ -4,8 +4,6 @@ const cors = require('cors');
 const { globalError } = require('../middlewares/globalError');
 const { routes } = require('./routes');
 
-const app = express();
-
 const PORT = 3001;
 
 class App {
@@ -25,4 +23,6 @@ class App {
 
 // app.get('/coffee', (_req, res) => res.status(418).end());
 
-module.exports = app;
+module.exports = {
+  App,
+};
