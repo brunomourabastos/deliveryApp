@@ -2,7 +2,7 @@ const { CustomError } = require('../../../utils/CustomError');
 
 const { adminSchema } = require('./adminSchema');
 
-class AdminRegisterValidation {
+class AdminValidation {
   constructor(schema = adminSchema) {
     this.schema = schema;
   }
@@ -20,7 +20,7 @@ class AdminRegisterValidation {
   }
 }
 
-const adminValidation = new AdminRegisterValidation(adminSchema);
+const adminValidation = new AdminValidation(adminSchema);
 
 module.exports = {
   adminValidation,
