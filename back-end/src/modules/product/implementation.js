@@ -1,4 +1,3 @@
-const { Op } = require('sequelize');
 const { CustomError } = require('../../../utils/CustomError');
 const Products = require('../../database/models/Products');
 
@@ -8,13 +7,9 @@ class ProductsImplementation {
   }
 
   async createProduct(productInfo) {
-    const alreadyExists = await this.sequelizeProductModel.findOne({
-      where: {
-        [Op.or]: [
-          { name: productInfo.name },
-        ],
-      },
-    });
+    const alreadyExists = await this.sequelizeProductModel
+      .findOne({ where: { name: productInfo.name } });
+
     if (alreadyExists) throw new CustomError(409, 'Product already exists');
 
     const createdProduct = await this.sequelizeProductModel.create(productInfo);

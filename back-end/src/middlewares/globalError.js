@@ -13,7 +13,7 @@ class GlobalError {
 
     return res
       .status(errStatus)
-      .json({ message: error.message });
+      .json({ message: 'Internal Server Error' });
   }
 }
 
