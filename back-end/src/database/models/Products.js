@@ -1,3 +1,4 @@
+const { sequelize } = require(".");
 const { Model, DataTypes } = require('sequelize');
 // const db = require('./index');
 
