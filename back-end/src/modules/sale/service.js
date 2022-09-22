@@ -25,8 +25,7 @@ class SalesServices {
 
   async updateOne(id, sale) {
     await this.readOne(id);
-    return this.salesImplementation.updateOne(id, sale)
-      .then((updatedSale) => updatedSale);
+    await this.salesImplementation.updateOne(id, sale);
   }
 
   async delete(id) {

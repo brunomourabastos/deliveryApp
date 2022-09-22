@@ -32,8 +32,7 @@ class SalesImplementation {
   }
 
   async updateOne(id, sale) {
-    return this.sequelizeSaleModel.update(sale, { where: { id } })
-      .then((updatedSale) => updatedSale);
+    await this.sequelizeSaleModel.update(sale, { where: { id } });
   }
 
   async delete(id) {

@@ -25,13 +25,13 @@ class SalesController {
   async updateOne(req, res) {
     const { id } = req.params;
     return this.salesService.updateOne(id, req.body)
-      .then((sale) => res.status(StatusCodes.OK).json(sale));
+      .then(() => res.status(StatusCodes.OK).json('Successfully updated'));
   }
 
   async delete(req, res) {
     const { id } = req.params;
     return this.salesService.delete(id)
-      .then(() => res.status(StatusCodes.OK).end());
+      .then(() => res.status(StatusCodes.OK).json('Successfully deleted'));
   }
 }
 
