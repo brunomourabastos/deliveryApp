@@ -1,14 +1,29 @@
 const { CustomError } = require('../../../utils/CustomError');
 const { SalesImplementation } = require('./implementation');
+const SaleProduct = require('../../database/models/SalesProducts');
 
 class SalesServices {
   constructor() {
     this.salesImplementation = new SalesImplementation();
+    this.salesProductsModel = SaleProduct;
   }
 
-  async create(sale) {
-    // Verificações
-    return this.salesImplementation.create(sale).then((newSale) => newSale);
+  async create(saleData) {
+    const { userId, sellerId, products, deliveryAddress, deliveryNumber } = saleData;
+
+    const totalPrice = products.reduce((acc, product) => acc + product.price, 0);
+    return this.salesImplementation.create({
+      userId,
+      sellerId,
+      totalPrice,
+      deliveryAddress,
+      deliveryNumber,
+    })
+      .then(async (newSale) => {
+        await this.salesProductsModel
+          .bulkCreate(products.map((product) => ({ saleId: newSale.id, productId: product.id })));
+        return newSale;
+      });
   }
 
   async readAll() {

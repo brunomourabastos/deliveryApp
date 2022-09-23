@@ -37,7 +37,7 @@ module.exports = {
         allowNull: false,
         field: 'delivery_number'
       },
-      createdAt: {
+      saleDate: {
         type: Sequelize.DATE,
         allowNull: false,
         field: 'sale_date',
