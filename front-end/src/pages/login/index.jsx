@@ -1,9 +1,11 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import loginContext from '../../context/login/context';
 
 export default function Login() {
   const { userEmail, userPass, setUserEmail, setUserPass } = useContext(loginContext);
   const [isDisabled, setIsDisabled] = useState(true);
+  const navigation = useNavigate();
 
   useEffect(() => {
     const validate = () => {
@@ -57,6 +59,16 @@ export default function Login() {
           disabled={ isDisabled }
         >
           Login
+
+        </button>
+
+        <button
+          data-testid="common_login__button-register"
+          type="submit"
+          disabled={ isDisabled }
+          onClick={ () => navigation('/register') }
+        >
+          Sign up
 
         </button>
       </div>
