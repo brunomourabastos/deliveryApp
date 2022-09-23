@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { NameInput, EmailInput, PasswordInput } from '../../components/inputs';
+import {
+  NameInput, EmailInput, PasswordInput, SubmitButton } from '../../components/inputs';
 import { registerUser } from '../../api-request';
 import setStorage from '../../utils/setStorage';
 
@@ -45,15 +46,21 @@ export default function Register() {
         handleForm={ form }
       />
 
-      <button
+      {/* <button
         disable={ !isValid }
         className="button-green"
-        onClick={ onClick }
+        // onClick={ onClick }
         type="submit"
         data-testid="common_register__button-register"
       >
         CADASTRAR
-      </button>
+      </button> */}
+
+      <SubmitButton
+        disable={ !isValid }
+        text="CADASTRAR"
+        dataId="common_register__button-register"
+      />
 
       <div>
         {
