@@ -12,7 +12,7 @@ export default function Login() {
     setCustomer, customerStatus, setCustomerStatus,
     sellerStatus, setSellerStatus } = useContext(loginContext);
   const [isDisabled, setIsDisabled] = useState(true);
-  const [errorMsg, setErrorMsg] = useState('');
+  const [errorMsg, setErrorMsg] = useState(false);
   const navigation = useNavigate();
 
   const form = useForm({ mode: 'onChange' });
@@ -39,21 +39,17 @@ export default function Login() {
     }
   });
 
-  const formSubmit = async (info) => {
-    try {
-      const { data } = await loginUser(info);
-      console.log('oi');
-      setStorage('user', data);
-      setCustomer({ ...data });
+  const formSubmit = async () => {
+    const data = await loginUser(userEmail, userPass);
+    if (!data) setErrorMsg(true);
+    setStorage('user', data);
+    setCustomer({ ...data });
 
-      if (data.role === 'customer') {
-        setCustomerStatus(true);
-      }
-      if (data.role === 'seller') {
-        setSellerStatus(true);
-      }
-    } catch (error) {
-      setErrorMsg(error.response.data.message);
+    if (data.role === 'customer') {
+      setCustomerStatus(true);
+    }
+    if (data.role === 'seller') {
+      setSellerStatus(true);
     }
   };
 
