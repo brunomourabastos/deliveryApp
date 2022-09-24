@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import {
   NameInput, EmailInput, PasswordInput, SubmitButton } from '../../components/inputs';
-import { registerUser } from '../../api-request';
-import setStorage from '../../utils/setStorage';
+import registerUser from '../../api/requests/registerUser';
+import { setStorage } from '../../utils/localStorage';
 
 // the following form will use the useForm custom hook
 // formState is an object that contains info about the entire form state.
