@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function SubmitButton({ text, onClick, disable, dataId }) {
+function SubmitButton({ text, disable, dataId }) {
   return (
     <button
       className="button--light-green"
-      onClick={ onClick }
+      // onClick={ onClick }
       type="submit"
       disabled={ disable }
       data-testid={ dataId }
@@ -17,9 +17,9 @@ function SubmitButton({ text, onClick, disable, dataId }) {
 
 SubmitButton.propTypes = {
   text: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  // onClick: PropTypes.func.isRequired,
   disable: PropTypes.bool.isRequired,
   dataId: PropTypes.string.isRequired,
 };
 
-export default SecondaryButton;
+export default SubmitButton;
