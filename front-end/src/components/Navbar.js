@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import getLocalStorage from '../services/getLocalStorage';
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import getLocalStorage from "../services/getLocalStorage";
 
 export default function Navbar() {
-
   const [userStored, setUserStored] = useState({
-    userName: '',
-    role: '',
+    userName: "",
+    role: "",
   });
 
   const navigate = useNavigate();
   // https://reactrouter.com/en/main/hooks/use-navigate
 
-  const getUser = getLocalStorage('user');
+  const getUser = getLocalStorage("user");
 
   useEffect(() => {
     if (!getUser) {
-      navigate('/login');
-      console.log('voltou para login');
+      navigate("/login");
+      console.log("voltou para login");
     }
 
     if (getUser) {
@@ -28,8 +27,8 @@ export default function Navbar() {
   }, []);
 
   const logout = () => {
-    localStorage.removeItem('user');
-    navigate('/login');
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
   // criando 3 tipos de Navbar (customer, seller e admin),
@@ -40,14 +39,14 @@ export default function Navbar() {
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-products"
-        onClick={ () => navigate('/customer/products') }
+        onClick={() => navigate("/customer/products")}
       >
         products
       </button>
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-orders"
-        onClick={ () => navigate('/customer/orders') }
+        onClick={() => navigate("/customer/orders")}
       >
         orders
       </button>
@@ -57,12 +56,12 @@ export default function Navbar() {
         data-testid="customer_products__element-navbar-user-full-name"
         // onClick={ () => navigate('/profile') implementar}
       >
-        { userStored.userName }
+        {userStored.userName}
       </button>
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
-        onClick={ () => logout() }
+        onClick={() => logout()}
       >
         quit
       </button>
@@ -82,12 +81,12 @@ export default function Navbar() {
         type="button"
         data-testid="customer_products__element-navbar-user-full-name"
       >
-        { userStored.userName }
+        {userStored.userName}
       </button>
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
-        onClick={ () => logout() }
+        onClick={() => logout()}
       >
         Sair
       </button>
@@ -107,12 +106,12 @@ export default function Navbar() {
         type="button"
         data-testid="customer_products__element-navbar-user-full-name"
       >
-        { `${userStored.userName} Admin`}
+        {`${userStored.userName} Admin`}
       </button>
       <button
         type="button"
         data-testid="customer_products__element-navbar-link-logout"
-        onClick={ () => logout() }
+        onClick={() => logout()}
       >
         Sair
       </button>
@@ -120,20 +119,20 @@ export default function Navbar() {
   );
 
   // se o usuário for cliente, renderiza o navbar de cliente
-  if (userStored.role === 'customer') {
+  if (userStored.role === "customer") {
     return customerNavbar;
   }
 
   // se usuário for vendedor, renderiza o navbar de vendedor
-  if (userStored.role === 'seller') {
+  if (userStored.role === "seller") {
     return sellerNavbar;
   }
 
   // se usuário for administrador, renderiza o navbar de administrador
-  if (userStored.role === 'administrator') {
+  if (userStored.role === "administrator") {
     return adminNavbar;
   }
 
   // se não ..Loading..
-  return (<>...Loading...</>);
+  return <>...Loading...</>;
 }
