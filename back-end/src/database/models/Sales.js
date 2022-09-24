@@ -30,7 +30,10 @@ Sales.init({
   deliveryAddress: DataTypes.STRING(100),
   deliveryNumber: DataTypes.STRING(50),
   saleDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
-  status: DataTypes.STRING }, {
+  status: {
+    type: DataTypes.STRING,
+    defaultValue: 'Pendente',
+  } }, {
     underscored: true,
     timestamps: false,
     modelName: 'Sales',
@@ -42,6 +45,5 @@ Users.hasMany(Sales, { foreignKey: "userId", as: "purchases" });
 
 Sales.belongsTo(Users, { foreignKey: "sellerId", as: "seller" });
 Users.hasMany(Sales, { foreignKey: "sellerId", as: "sales" });
-
 
 module.exports = Sales;
