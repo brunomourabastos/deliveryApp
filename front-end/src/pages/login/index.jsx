@@ -1,10 +1,13 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import loginContext from '../../context/login/context';
 
 export default function Login() {
   const { userEmail, userPass, setUserEmail, setUserPass } = useContext(loginContext);
   const [isDisabled, setIsDisabled] = useState(true);
   const [notFoundUser, setNotFoundUser] = useState(false);
+
+  const navigateTo = useNavigate();
 
   useEffect(() => {
     const validate = () => {
@@ -35,6 +38,21 @@ export default function Login() {
     if (response.message === 'User not found') {
       setNotFoundUser(true);
     }
+
+    if (response.role === 'administrator') {
+      return navigateTo('/adm/manage');
+    }
+    if (response.role === 'seller') {
+      return navigateTo('/seller/order');
+    }
+    if (response.role === 'customer') {
+      return navigateTo('/products');
+    }
+  }
+
+  function registerClick(event) {
+    event.preventDefault();
+    return navigateTo('/register');
   }
 
   return (
@@ -72,6 +90,13 @@ export default function Login() {
         >
           Login
 
+        </button>
+        <button
+          type="submit"
+          data-testid="common_login__button-register"
+          onClick={ registerClick }
+        >
+          Ainda não tenho conta
         </button>
       </div>
     </form>
