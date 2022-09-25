@@ -4,6 +4,7 @@ import loginContext from '../../context/login/context';
 export default function Login() {
   const { userEmail, userPass, setUserEmail, setUserPass } = useContext(loginContext);
   const [isDisabled, setIsDisabled] = useState(true);
+  const [notFoundUser, setNotFoundUser] = useState(false);
 
   useEffect(() => {
     const validate = () => {
@@ -19,22 +20,34 @@ export default function Login() {
     validate();
   }, [userEmail, userPass]);
 
-  // async function onClickLogin(event) {
-  //   event.preventDefault();
-  //   const data = await fetch('http://localhost:3001/login', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ email: userEmail, password: userPass }),
-  //   });
-  //   const response = await data.json();
-  // }
+  async function onClickLogin(event) {
+    event.preventDefault();
+    const data = await fetch('http://localhost:3001/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: userEmail, password: userPass }),
+    });
+    const response = await data.json();
+    console.log(response);
+
+    if (response.message === 'User not found') {
+      setNotFoundUser(true);
+    }
+  }
 
   return (
     <form>
-
       <div>
+        {notFoundUser
+        && (
+          <p
+            data-testid="common_login__element-invalid-email"
+          >
+            Usuário ou senha incorretos
+
+          </p>)}
         <input
           data-testid="common_login__input-email"
           type="text"
@@ -55,6 +68,7 @@ export default function Login() {
           data-testid="common_login__button-login"
           type="submit"
           disabled={ isDisabled }
+          onClick={ onClickLogin }
         >
           Login
 
