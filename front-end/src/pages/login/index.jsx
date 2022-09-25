@@ -46,7 +46,7 @@ export default function Login() {
       return navigateTo('/seller/order');
     }
     if (response.role === 'customer') {
-      return navigateTo('/products');
+      return navigateTo('/customer/products');
     }
   }
 
