@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import getAllProducts from '../../api/requests/getAllProducts';
 import ProductBox from '../../components/cards/ProductBox';
 import { getStorage } from '../../utils/localStorage';
+import Navbar from '../../components/Navbar';
 
 function Customer() {
   const [user, setUser] = useState('Default User');
@@ -23,7 +24,8 @@ function Customer() {
 
   return (
     <div>
-      <p>{user.name}</p>
+      <Navbar>{user.name}</Navbar>
+
       <Routes>
         <Route
           path="/products"
