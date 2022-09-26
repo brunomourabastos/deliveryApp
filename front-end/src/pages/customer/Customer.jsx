@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import getAllProducts from '../../api/requests/getAllProducts';
 import Orders from './Orders';
+import CustomerOrderId from './CustomerOrderId';
 import ProductBox from '../../components/cards/ProductBox';
 import { getStorage } from '../../utils/localStorage';
 import Navbar from '../../components/Navbar';
@@ -36,6 +37,11 @@ function Customer() {
         <Route
           path="/orders"
           element={ <Orders /> }
+        />
+
+        <Route
+          path="/orders/:id"
+          element={ <CustomerOrderId /> }
         />
 
       </Routes>
