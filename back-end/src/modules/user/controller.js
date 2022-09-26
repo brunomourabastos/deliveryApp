@@ -25,7 +25,7 @@ class UsersController {
 
   async registerAdminUser(req, res) {
       const userRegisterInformations = req.body;
-
+        console.log(userRegisterInformations);
       const commonUserResponse = await this
           .usersService.registerAdminUser(userRegisterInformations);
 

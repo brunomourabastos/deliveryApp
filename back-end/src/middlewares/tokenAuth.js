@@ -8,7 +8,7 @@ class TokenAuth {
     this.notFound = notFound;
   }
 
-  handle(req, res, next) {
+  handle(req, _res, next) {
     const { authorization: userToken } = req.headers;
 
     if (!userToken) {

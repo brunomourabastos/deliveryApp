@@ -5,7 +5,7 @@ function NameInput({ dataId, handleForm }) {
   return (
     <label htmlFor="name">
 
-      <div className="name-text">Name</div>
+      <div className="name-text">Nome</div>
       <input
         id="name"
         type="name"
