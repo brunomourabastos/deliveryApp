@@ -46,7 +46,7 @@ export default function Admin() {
         />
 
         <RoleInput
-          dataId="admin_manage__input-role"
+          dataId="admin_manage__select-role"
           handleForm={ form }
         />
 
