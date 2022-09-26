@@ -1,9 +1,13 @@
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProductCard from './ProductCard';
+import OrderContext from '../../context/order/OrderContext';
 
 function ProductBox({ products }) {
-  // const navigation = useNavigate();
+  const navigation = useNavigate();
+  const { total } = useContext(OrderContext);
+
+  const serialize = (price) => price.toFixed(2).toString().replace('.', ',');
 
   return (
     <>
@@ -16,6 +20,18 @@ function ProductBox({ products }) {
           img={ product.urlImage }
         />
       ))}
+
+      <button
+        data-testId="customer_products__button-cart"
+        type="button"
+        total={ total }
+        disabled={ +(total) === 0 }
+        onClick={ () => navigation('../checkout', { replace: true }) }
+      >
+        <span data-testId="customer_products__checkout-bottom-value">
+          { serialize(+total) }
+        </span>
+      </button>
     </>
   );
 }
