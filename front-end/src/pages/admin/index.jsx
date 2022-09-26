@@ -31,29 +31,29 @@ export default function Admin() {
       <h2>Cadastrar novo usuário</h2>
       <form onSubmit={ form.handleSubmit(createUser) }>
         <NameInput
-          dataId="admin_register__input-name"
+          dataId="admin_manage__input-name"
           handleForm={ form }
         />
 
         <EmailInput
-          dataId="admin_register__input-email"
+          dataId="admin_manage__input-email"
           handleForm={ form }
         />
 
         <PasswordInput
-          dataId="admin_register__input-password"
+          dataId="admin_manage__input-password"
           handleForm={ form }
         />
 
         <RoleInput
-          dataId="admin_register__input-role"
+          dataId="admin_manage__input-role"
           handleForm={ form }
         />
 
         <SubmitButton
           disable={ !isValid }
           text="CADASTRAR"
-          dataId="admin_register__button-register"
+          dataId="admin_manage__button-register"
         />
       </form>
     </>

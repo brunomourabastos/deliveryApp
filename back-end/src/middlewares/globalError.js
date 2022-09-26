@@ -7,7 +7,6 @@ class GlobalError {
 
   handle(error, _req, res, _next) {
     const errStatus = error.status || this.defaultStatus;
-    console.log(error);
     if (error instanceof CustomError) {
       return res.status(error.status).json({ message: error.message });
     }

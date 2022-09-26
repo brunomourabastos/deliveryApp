@@ -1,3 +1,4 @@
+const { StatusCodes } = require('http-status-codes');
 const { UsersImplementation } = require('./implementation');
 const { token } = require('../../../utils/Token');
 const { CustomError } = require('../../../utils/CustomError');
@@ -52,8 +53,16 @@ class UsersService {
   async registerAdminUser(userRegistrationInfo) {
       const hashedUser = hashGenerator(userRegistrationInfo);
 
-      const createdUser = await this
-        .userImplementation.registerAdminUser(hashedUser);
+      const hashedUserInfo = {
+        email: hashedUser.email,
+        password: hashedUser.password,
+      };
+
+      await this.userImplementation.loginUser(hashedUserInfo).then((user) => {
+        if (user) throw new CustomError(StatusCodes.CONFLICT, 'User already exists');
+      });
+
+      const createdUser = await this.userImplementation.registerAdminUser(hashedUser);
 
       const adminUserToken = token.generate(hashedUser);
 
