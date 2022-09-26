@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import getAllProducts from '../../api/requests/getAllProducts';
+import Orders from './Orders';
 import ProductBox from '../../components/cards/ProductBox';
 import { getStorage } from '../../utils/localStorage';
 import Navbar from '../../components/Navbar';
@@ -31,9 +32,12 @@ function Customer() {
           path="/products"
           element={ <ProductBox products={ products } /> }
         />
-        {/* <div>placeholder text</div>
-        <p>{user}</p>
-        <p>{products}</p> */}
+
+        <Route
+          path="/orders"
+          element={ <Orders /> }
+        />
+
       </Routes>
     </div>
   );
