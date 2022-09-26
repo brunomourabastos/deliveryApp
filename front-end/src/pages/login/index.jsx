@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { useNavigate, Navigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+
 import loginContext from '../../context/login/context';
 import { setStorage, getStorage } from '../../utils/localStorage';
 import loginUser from '../../api/requests/loginUser';
@@ -12,10 +12,9 @@ export default function Login() {
     setCustomer, customerStatus, setCustomerStatus,
     sellerStatus, setSellerStatus } = useContext(loginContext);
   const [isDisabled, setIsDisabled] = useState(true);
-  const [errorMsg, setErrorMsg] = useState(false);
-  const navigation = useNavigate();
+  const [notFoundUser, setNotFoundUser] = useState(false);
 
-  const form = useForm({ mode: 'onChange' });
+  const navigateTo = useNavigate();
 
   useEffect(() => {
     const validate = () => {
@@ -31,51 +30,50 @@ export default function Login() {
     validate();
   }, [userEmail, userPass]);
 
-  useEffect(() => {
-    const userData = getStorage('user');
+  async function onClickLogin(event) {
+    event.preventDefault();
+    const data = await fetch('http://localhost:3001/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: userEmail, password: userPass }),
+    });
+    const response = await data.json();
+    console.log(response);
 
-    if (userData?.token && DataTransfer?.role === 'customer') {
-      navigation('/customer/products');
+    if (response.message === 'User not found') {
+      setNotFoundUser(true);
     }
-  });
 
-  const formSubmit = async () => {
-    const data = await loginUser(userEmail, userPass);
-    if (!data) setErrorMsg(true);
-    setStorage('user', data);
-    setCustomer({ ...data });
-
-    if (data.role === 'customer') {
-      setCustomerStatus(true);
+    if (response.role === 'administrator') {
+      return navigateTo('/adm/manage');
     }
-    if (data.role === 'seller') {
-      setSellerStatus(true);
+    if (response.role === 'seller') {
+      return navigateTo('/seller/order');
     }
-  };
-
-  if (customerStatus) {
-    return <Navigate to="/customer/products" />;
-  }
-  if (sellerStatus) {
-    return <Navigate to="/seller/orders" />;
+    if (response.role === 'customer') {
+      return navigateTo('/customer/products');
+    }
   }
 
-  // async function onClickLogin(event) {
-  //   event.preventDefault();
-  //   const data = await fetch('http://localhost:3001/login', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ email: userEmail, password: userPass }),
-  //   });
-  //   const response = await data.json();
-  // }
+  function registerClick(event) {
+    event.preventDefault();
+    return navigateTo('/register');
+  }
 
   return (
-    <form onSubmit={ form.handleSubmit(formSubmit) }>
+    <form>
 
       <div>
+        {notFoundUser
+        && (
+          <p
+            data-testid="common_login__element-invalid-email"
+          >
+            Usuário ou senha incorretos
+
+          </p>)}
         <input
           data-testid="common_login__input-email"
           type="text"
@@ -96,25 +94,19 @@ export default function Login() {
           data-testid="common_login__button-login"
           type="submit"
           disabled={ isDisabled }
+          onClick={ onClickLogin }
         >
           Login
 
         </button>
-
+        
         <button
+          type="submit"
           data-testid="common_login__button-register"
-          type="button"
-          disabled={ false }
-          onClick={ () => navigation('/register') }
+          onClick={ registerClick }
         >
-          Sign up
-
+          Ainda não tenho conta
         </button>
-      </div>
-
-      <div>
-        { errorMsg.length > 0
-          && <p data-testid="common_login__element-invalid-email">{ errorMsg }</p> }
       </div>
     </form>
 
