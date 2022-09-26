@@ -2,15 +2,15 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import loginContext from '../../context/login/context';
-import { setStorage, getStorage } from '../../utils/localStorage';
-import loginUser from '../../api/requests/loginUser';
+/* import { setStorage, getStorage } from '../../utils/localStorage';
+import loginUser from '../../api/requests/loginUser'; */
 
 export default function Login() {
   const {
     userEmail, userPass,
     setUserEmail, setUserPass,
-    setCustomer, customerStatus, setCustomerStatus,
-    sellerStatus, setSellerStatus } = useContext(loginContext);
+    /* setCustomer, customerStatus, setCustomerStatus,
+    sellerStatus, setSellerStatus */ } = useContext(loginContext);
   const [isDisabled, setIsDisabled] = useState(true);
   const [notFoundUser, setNotFoundUser] = useState(false);
 
@@ -96,7 +96,7 @@ export default function Login() {
           Login
 
         </button>
-        
+
         <button
           type="submit"
           data-testid="common_login__button-register"
