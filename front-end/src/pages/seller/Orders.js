@@ -19,6 +19,7 @@ export default function SellerOrders() {
     const numeroPedido = pad.substring(0, pad.length - str.length) + str;
 
     // https://stackoverflow.com/questions/5366849/convert-1-to-0001-in-javascript
+    // convertei o numero (1) do pedido para a forma correta (0001)
 
     return numeroPedido;
   };
