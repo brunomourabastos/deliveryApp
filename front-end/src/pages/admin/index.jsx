@@ -18,14 +18,20 @@ export default function Admin() {
       body: JSON.stringify(formData),
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((err) => setErrMsg(err.message));
+      .then((data) => {
+        switch (data.message) {
+        case 'User already exists':
+          return setErrMsg(data.message);
+        default:
+          break;
+        }
+      });
   }
 
   return (
     <>
       {
-        errMsg.length > 0
+        errMsg !== ''
       && <p data-testid="admin_manage__element-invalid-register">{ errMsg }</p>
       }
       <h2>Cadastrar novo usuário</h2>
