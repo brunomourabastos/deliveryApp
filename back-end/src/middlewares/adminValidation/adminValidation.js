@@ -3,7 +3,7 @@ const { CustomError } = require('../../../utils/CustomError');
 const { adminSchema } = require('./adminSchema');
 
 class AdminValidation {
-  constructor(schema = adminSchema) {
+  constructor(schema) {
     this.schema = schema;
   }
 

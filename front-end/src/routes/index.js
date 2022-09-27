@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import Admin from '../pages/admin';
 import Customer from '../pages/customer/Customer';
 import Login from '../pages/login';
 import Register from '../pages/register';
@@ -14,6 +15,8 @@ function AppRoute() {
         <Route path="/register" element={ <Register /> } />
 
         <Route path="/customer/*" element={ <Customer /> } />
+
+        <Route path="/admin/manage" element={ <Admin /> } />
       </Routes>
     </BrowserRouter>
   );

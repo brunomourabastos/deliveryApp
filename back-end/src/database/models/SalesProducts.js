@@ -14,6 +14,8 @@ SalesProducts.init({
       model: Sales,
       key: "id",
     },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   },
   productId: {
     type: DataTypes.INTEGER,
@@ -23,6 +25,8 @@ SalesProducts.init({
       model: Products,
       key: "id",
     },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
   },
   quantity: {
     type: DataTypes.INTEGER,

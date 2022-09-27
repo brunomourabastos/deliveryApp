@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getStorage } from '../../utils/localStorage';
 import loginContext from '../../context/login/context';
+import { getStorage } from '../../utils/localStorage';
 
 export default function Login() {
   const {
@@ -17,11 +18,7 @@ export default function Login() {
       const re = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/g;
       const validEmail = re.test(userEmail);
       const NUMBERFIVE = 5;
-      if (validEmail && userPass.length > NUMBERFIVE) {
-        setIsDisabled(false);
-      } else {
-        setIsDisabled(true);
-      }
+      setIsDisabled(!(validEmail && userPass.length > NUMBERFIVE));
     };
     validate();
   }, [userEmail, userPass]);
@@ -44,6 +41,7 @@ export default function Login() {
       body: JSON.stringify({ email: userEmail, password: userPass }),
     });
     const response = await data.json();
+    localStorage.setItem('token', response.token);
     console.log(response);
 
     if (response.message === 'User not found') {
@@ -51,7 +49,7 @@ export default function Login() {
     }
 
     if (response.role === 'administrator') {
-      return navigateTo('/adm/manage');
+      return navigateTo('/admin/manage');
     }
     if (response.role === 'seller') {
       return navigateTo('/seller/order');
