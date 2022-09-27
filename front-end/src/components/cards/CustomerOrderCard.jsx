@@ -18,13 +18,10 @@ const serializeDate = (date) => {
 const FOUR = 4;
 
 function CustomerOrderCard({ orderCode, dateOrder, priceTotal }) {
-  const prefix = 'customer_orders__';
-
   const redirect = useNavigate();
 
   return (
     <div
-      className="order-container"
       onClick={ () => redirect(`${orderCode}`) }
       onKeyDown={ () => {} }
       role="button"
@@ -32,7 +29,7 @@ function CustomerOrderCard({ orderCode, dateOrder, priceTotal }) {
     >
 
       <div
-        data-testid={ `${prefix}element-order-id-${orderCode}` }
+        data-testid={ `customer_orders__element-order-id-${orderCode}` }
       >
         {`Pedido ${serializeZeros(orderCode.toString(), FOUR)}`}
       </div>
@@ -40,20 +37,20 @@ function CustomerOrderCard({ orderCode, dateOrder, priceTotal }) {
       <div>
 
         <div
-          data-testid={ `${prefix}element-delivery-status-${orderCode}` }
+          data-testid={ `customer_orders__element-delivery-status-${orderCode}` }
         >
           {/* <aside /> */}
         </div>
 
         <div>
           <div
-            data-testid={ `${prefix}element-order-date-${orderCode}` }
+            data-testid={ `customer_orders__element-order-date-${orderCode}` }
           >
             { serializeDate(dateOrder) }
           </div>
 
           <div
-            data-testid={ `${prefix}element-card-price-${orderCode}` }
+            data-testid={ `customer_orders__element-card-price-${orderCode}` }
           >
             R$
             {' '}

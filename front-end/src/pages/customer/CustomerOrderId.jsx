@@ -18,7 +18,7 @@ function CustomerOrderId() {
 
   return (
     <main>
-      {order.id && <OrderTable />}
+      {order.id && <OrderTable order={ order } />}
     </main>
   );
 }
