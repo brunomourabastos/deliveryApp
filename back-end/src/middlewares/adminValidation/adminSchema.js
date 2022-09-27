@@ -6,7 +6,7 @@ const adminSchema = z.object({
     requiredError: 'Name is required',
     invalidTypeError: 'Name must be a string',
   })
-  .max(12, { message: 'Name must be less than 12 characters' }),
+  .min(12, { message: 'Name must be ate least 12 characters long' }),
 
   email: z
     .string({

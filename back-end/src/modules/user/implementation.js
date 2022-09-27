@@ -33,7 +33,6 @@ class UsersImplementation {
 
   async registerAdminUser(userRegistrationInfo) {
       const createdAdminUser = await this.sequelizeUserModel.create(userRegistrationInfo);
-
       return createdAdminUser;
   }
 
@@ -51,6 +50,10 @@ class UsersImplementation {
       const foundUser = await this.sequelizeUserModel.findByPk(userId);
 
       return foundUser;
+  }
+
+  async findUserByEmail(email) {
+    return this.sequelizeUserModel.findOne({ where: { email } }).then((user) => user);
   }
 }
 
