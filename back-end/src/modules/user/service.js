@@ -53,12 +53,7 @@ class UsersService {
   async registerAdminUser(userRegistrationInfo) {
       const hashedUser = hashGenerator(userRegistrationInfo);
 
-      const hashedUserInfo = {
-        email: hashedUser.email,
-        password: hashedUser.password,
-      };
-
-      await this.userImplementation.loginUser(hashedUserInfo).then((user) => {
+      await this.userImplementation.findUserByEmail(userRegistrationInfo.email).then((user) => {
         if (user) throw new CustomError(StatusCodes.CONFLICT, 'User already exists');
       });
 

@@ -51,6 +51,10 @@ class UsersImplementation {
 
       return foundUser;
   }
+
+  async findUserByEmail(email) {
+    return this.sequelizeUserModel.findOne({ where: { email } }).then((user) => user);
+  }
 }
 
 module.exports = {
