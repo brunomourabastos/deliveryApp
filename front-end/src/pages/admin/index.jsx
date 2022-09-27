@@ -12,7 +12,7 @@ export default function Admin() {
 
   function createUser(formData) {
     const userToken = localStorage.getItem('token');
-    fetch('http://localhost:3001/users/register/admin/', {
+    fetch('http://localhost:3001/users/register/admin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', authorization: userToken },
       body: JSON.stringify(formData),

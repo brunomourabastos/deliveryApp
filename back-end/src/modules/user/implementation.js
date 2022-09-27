@@ -33,7 +33,6 @@ class UsersImplementation {
 
   async registerAdminUser(userRegistrationInfo) {
       const createdAdminUser = await this.sequelizeUserModel.create(userRegistrationInfo);
-        console.log(createdAdminUser);
       return createdAdminUser;
   }
 
