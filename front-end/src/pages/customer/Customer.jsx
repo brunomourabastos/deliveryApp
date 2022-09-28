@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import getAllProducts from '../../api/requests/getAllProducts';
 import Orders from './Orders';
-import Checkout from './Checkout';
 import CustomerOrderId from './CustomerOrderId';
 import ProductBox from '../../components/cards/ProductBox';
 import { getStorage } from '../../utils/localStorage';
 import Navbar from '../../components/Navbar';
+import Checkout from './Checkout';
 
 function Customer() {
   const [user, setUser] = useState('Default User');
@@ -46,7 +46,7 @@ function Customer() {
         />
 
         <Route
-          path="/checkout"
+          path="/customer/checkout"
           element={ <Checkout /> }
         />
 
