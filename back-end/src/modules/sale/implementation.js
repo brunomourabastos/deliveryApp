@@ -12,23 +12,20 @@ class SalesImplementation {
   }
 
   async readAll() {
+    return this.sequelizeSaleModel.findAll({ attributes: { exclude: ['userId', 'sellerId'] } })
+      .then((sales) => sales);
+  }
+
+  async readBySellerId(id) {
     return this.sequelizeSaleModel.findAll({
-      include: [
-        { model: this.sequelizeUserModel, as: 'buyer', attributes: { exclude: ['password'] } },
-        { model: this.sequelizeUserModel, as: 'seller', attributes: { exclude: ['password'] } },
-      ],
+      where: { sellerId: id },
       attributes: { exclude: ['userId', 'sellerId'] },
     }).then((sales) => sales);
   }
 
   async readOne(id) {
-    return this.sequelizeSaleModel.findByPk(id, {
-      include: [
-        { model: this.sequelizeUserModel, as: 'buyer', attributes: { exclude: ['password'] } },
-        { model: this.sequelizeUserModel, as: 'seller', attributes: { exclude: ['password'] } },
-      ],
-      attributes: { exclude: ['userId', 'SellerId'] },
-    }).then((sale) => sale);
+    return this.sequelizeSaleModel.findByPk(id, { attributes: { exclude: ['userId', 'SellerId'] } })
+      .then((sale) => sale);
   }
 
   async updateOne(id, sale) {

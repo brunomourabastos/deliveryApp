@@ -1,4 +1,3 @@
-const { Op } = require('sequelize');
 const Users = require('../../database/models/Users');
 const { CustomError } = require('../../../utils/CustomError');
 
@@ -10,19 +9,18 @@ class UsersImplementation {
   async loginUser(userInfo) {
       const { email, password } = userInfo;
 
-      const findUser = await this.sequelizeUserModel.findOne({ where: { email, password } });
+      const findUser = await this.sequelizeUserModel.findOne({
+        where: { email, password },
+        attributes: { exclude: 'password' },
+      });
 
       return findUser;
   }
 
   async registerCommonUser(userRegistrationInfo) {
       const alreadyExists = await this.sequelizeUserModel.findOne({
-          where: {
-              [Op.or]: [
-                  { email: userRegistrationInfo.email },
-                  { name: userRegistrationInfo.name },
-              ],
-          } });
+            where: { email: userRegistrationInfo.email },
+        });
 
       if (alreadyExists) throw new CustomError(409, 'User already exists');
 
@@ -40,6 +38,11 @@ class UsersImplementation {
       const usersList = await this.sequelizeUserModel.findAll();
 
       return usersList;
+  }
+
+  async getAllRole(role) {
+    return this.sequelizeUserModel.findAll({ where: { role }, attributes: ['id', 'name'] })
+      .then((users) => users);
   }
 
   async deleteUser(userId) {

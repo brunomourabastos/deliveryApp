@@ -20,7 +20,7 @@ class UsersService {
 
       const { name, email, role, id } = foundUser;
 
-      const userToken = token.generate(hashedUser);
+      const userToken = token.generate({ id, role });
 
       return {
           id,
@@ -74,6 +74,10 @@ class UsersService {
       const allCommonUsers = await this.userImplementation.getAllCommonUsers();
 
       return allCommonUsers;
+  }
+
+  async getAllSellers() {
+    return this.userImplementation.getAllRole('seller').then((sellers) => sellers);
   }
 
   async deleteUser(userId) {

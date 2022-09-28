@@ -11,6 +11,8 @@ const userRoutes = express.Router();
 userRoutes
   .get('/', (req, res) => usersController.getAllCommonUsers(req, res))
 
+  .get('/sellers', (req, res) => usersController.getAllSellers(req, res))
+
   .delete(
     '/:userId',
     (req, res, next) => tokenAuth.handle(req, res, next),

@@ -8,10 +8,10 @@ class SalesServices {
     this.salesProductsModel = SaleProduct;
   }
 
-  async create(saleData) {
-    const { userId, sellerId, products, deliveryAddress, deliveryNumber } = saleData;
+  create(userId, saleData) {
+    const { sellerId, products, deliveryAddress, deliveryNumber } = saleData;
 
-    const totalPrice = products.reduce((acc, product) => acc + product.price, 0);
+    const totalPrice = products.reduce((acc, product) => acc + (product.price * product.quantity), 0);
     return this.salesImplementation.create({
       userId,
       sellerId,
@@ -20,27 +20,42 @@ class SalesServices {
       deliveryNumber,
     })
       .then(async (newSale) => {
-        await this.salesProductsModel
-          .bulkCreate(products.map((product) => ({ saleId: newSale.id, productId: product.id })));
+        await this.salesProductsModel.bulkCreate(products.map((product) => (
+            { saleId: newSale.id, productId: product.id, quantity: product.quantity }
+          )));
         return newSale;
       });
   }
 
-  async readAll() {
+  readAll() {
     return this.salesImplementation.readAll().then((sales) => sales);
   }
 
-  async readOne(id) {
-    return this.salesImplementation.readOne(id)
-      .then((sale) => {
+  readOne(id) {
+    return this.salesImplementation.readOne(id).then((sale) => {
         if (!sale) throw new CustomError(404, 'Sale not found');
         return sale;
       });
   }
 
-  async updateOne(id, sale) {
-    await this.readOne(id);
-    await this.salesImplementation.updateOne(id, sale);
+  readBySellerId(id) {
+    return this.salesImplementation.readBySellerId(id).then((sales) => sales);
+  }
+
+  async updateOne(id, status) {
+    await this.readOne(id).then(async (sale) => {
+      const updatedSale = {
+        id: sale.id,
+        userId: sale.userId,
+        sellerId: sale.sellerId,
+        totalPrice: sale.totalPrice,
+        deliveryAddress: sale.deliveryAddress,
+        deliveryNumber: sale.deliveryNumber,
+        saleDate: sale.saleDate,
+        status,
+      }
+      await this.salesImplementation.updateOne(id, updatedSale);
+    });
   }
 
   async delete(id) {
