@@ -1,5 +1,3 @@
-const { CustomError } = require('../../utils/CustomError');
-
 class GlobalError {
   constructor(defaultStatus = 500) {
     this.defaultStatus = defaultStatus;
