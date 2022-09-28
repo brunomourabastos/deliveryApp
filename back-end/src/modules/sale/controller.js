@@ -29,7 +29,7 @@ class SalesController {
       .then((sales) => res.status(StatusCodes.OK).json(sales));
   }
 
-  updateOne(req, res, next) {
+  updateOne(req, res) {
     const { id } = req.params;
     const { status } = req.body;
     return this.salesService.updateOne(id, status)

@@ -11,7 +11,8 @@ class SalesServices {
   create(userId, saleData) {
     const { sellerId, products, deliveryAddress, deliveryNumber } = saleData;
 
-    const totalPrice = products.reduce((acc, product) => acc + (product.price * product.quantity), 0);
+    const totalPrice = products
+      .reduce((acc, product) => acc + (product.price * product.quantity), 0);
     return this.salesImplementation.create({
       userId,
       sellerId,
@@ -53,7 +54,7 @@ class SalesServices {
         deliveryNumber: sale.deliveryNumber,
         saleDate: sale.saleDate,
         status,
-      }
+      };
       await this.salesImplementation.updateOne(id, updatedSale);
     });
   }
