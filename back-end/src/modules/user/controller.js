@@ -38,6 +38,11 @@ class UsersController {
       return res.status(StatusCodes.OK).json(allCommonUsers);
   }
 
+  async getAllSellers(_req, res) {
+    return this.usersService.getAllSellers()
+        .then((sellers) => res.status(StatusCodes.OK).json(sellers));
+  }
+
   async deleteUser(req, res) {
       const { userId } = req.params;
 

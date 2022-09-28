@@ -16,6 +16,8 @@ class TokenAuth {
     }
 
     const { data: userLoginInfos } = token.verify(userToken);
+    
+    req.headers.userData = userLoginInfos;
 
     if (!userLoginInfos) {
       throw new CustomError(this.invalid, 'Invalid or expired token');

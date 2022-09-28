@@ -8,8 +8,8 @@ class SalesServices {
     this.salesProductsModel = SaleProduct;
   }
 
-  async create(saleData) {
-    const { userId, sellerId, products, deliveryAddress, deliveryNumber } = saleData;
+  async create(userId, saleData) {
+    const { sellerId, products, deliveryAddress, deliveryNumber } = saleData;
 
     const totalPrice = products.reduce((acc, product) => acc + product.price, 0);
     return this.salesImplementation.create({
@@ -38,9 +38,15 @@ class SalesServices {
       });
   }
 
-  async updateOne(id, sale) {
-    await this.readOne(id);
-    await this.salesImplementation.updateOne(id, sale);
+  async readBySellerId(id) {
+    return this.salesImplementation.readBySellerId(id)
+      .then((sales) => sales);
+  }
+
+  async updateOne(id, status) {
+    this.readOne(id).then(async (sale) => {
+      await this.salesImplementation.updateOne(id, { ...sale, status });
+    });
   }
 
   async delete(id) {

@@ -7,7 +7,8 @@ class SalesController {
   }
 
   async create(req, res) {
-    return this.salesService.create(req.body)
+    const { id } = req.headers.userData;
+    return this.salesService.create(id, req.body)
       .then((sale) => res.status(StatusCodes.CREATED).json(sale));
   }
 
@@ -20,6 +21,12 @@ class SalesController {
     const { id } = req.params;
     return this.salesService.readOne(id)
       .then((sale) => res.status(StatusCodes.OK).json(sale));
+  }
+
+  async readBySellerId(req, res) {
+    const { id } = req.headers.userData;
+    return this.salesService.readBySellerId(id)
+      .then((sales) => res.status(StatusCodes.OK).json(sales));
   }
 
   async updateOne(req, res) {
