@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProductCard from './ProductCard';
@@ -22,13 +23,13 @@ function ProductBox({ products }) {
       ))}
 
       <button
-        data-testId="customer_products__button-cart"
+        data-testid="customer_products__button-cart"
         type="button"
         total={ total }
         disabled={ +(total) === 0 }
         onClick={ () => navigation('../checkout', { replace: true }) }
       >
-        <span data-testId="customer_products__checkout-bottom-value">
+        <span data-testid="customer_products__checkout-bottom-value">
           { serialize(+total) }
         </span>
       </button>

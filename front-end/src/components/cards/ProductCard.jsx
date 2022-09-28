@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import OrderContext from '../../context/order/OrderContext';
 import QuantityInput from '../inputs/QuantityInput';
@@ -11,6 +11,8 @@ function ProductCard({ id, description, price, img }) {
   const [productId] = useState(id);
   const [productDescription] = useState(description);
   const [productPrice] = useState(+(price));
+  const [quantity, setQuantity] = useState(0);
+  const [subTotal, setSubTotal] = useState(0.00);
 
   const { cart, setCart } = useContext(OrderContext);
 
@@ -20,13 +22,21 @@ function ProductCard({ id, description, price, img }) {
       productDescription,
       productPrice,
       quantity,
-      subtotal,
+      subTotal,
     };
 
     const cartFiltered = cart.filter((product) => product.product !== productId);
     if (quantity === 0) return setCart(cartFiltered);
     setCart([...cartFiltered, productUpdated]);
-  }, [cart, productDescription, productId, productPrice, setCart]);
+  }, [cart, productDescription, productId, productPrice, quantity, setCart, subTotal]);
+
+  useEffect(() => {
+    setSubTotal(productPrice * quantity);
+  }, [productPrice, quantity]);
+
+  const FOUR = 4;
+
+  const serializeZeros = (str, numberOfZeros) => str.padStart(numberOfZeros, 0);
 
   return (
     <div
@@ -35,12 +45,12 @@ function ProductCard({ id, description, price, img }) {
     >
 
       <span data-testid={ dataTestId + productId }>
-        { `${replaceDotToSemiColon(productPrice)}` }
+        { `${serializeZeros(productPrice.toString(), FOUR)}` }
       </span>
 
       <img
         data-testid={ dataTestIdImg + productId }
-        src={ imagesPath + img }
+        src={ img }
         alt={ productDescription }
       />
 

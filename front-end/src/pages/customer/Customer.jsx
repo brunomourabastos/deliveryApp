@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import getAllProducts from '../../api/requests/getAllProducts';
 import Orders from './Orders';
+import Checkout from './Checkout';
 import CustomerOrderId from './CustomerOrderId';
 import ProductBox from '../../components/cards/ProductBox';
 import { getStorage } from '../../utils/localStorage';
@@ -42,6 +43,11 @@ function Customer() {
         <Route
           path="/orders/:id"
           element={ <CustomerOrderId /> }
+        />
+
+        <Route
+          path="/checkout"
+          element={ <Checkout /> }
         />
 
       </Routes>
