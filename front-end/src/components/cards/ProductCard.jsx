@@ -26,8 +26,7 @@ function ProductCard({ id, description, price, img }) {
     const cartFiltered = cart.filter((product) => product.product !== productId);
     if (quantity === 0) return setCart(cartFiltered);
     setCart([...cartFiltered, productUpdated]);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [subtotal]);
+  }, [cart, productDescription, productId, productPrice, setCart]);
 
   return (
     <div
