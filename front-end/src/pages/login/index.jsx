@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getStorage } from '../../utils/localStorage';
 import loginContext from '../../context/login/context';
-import { getStorage } from '../../utils/localStorage';
 
 export default function Login() {
   const {
