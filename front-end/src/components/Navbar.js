@@ -25,7 +25,7 @@ export default function Navbar() {
       console.log(`fez o login de ${role}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [getUser, navigate]);
 
   const logout = () => {
     localStorage.removeItem('user');

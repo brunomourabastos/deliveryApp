@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import getAllProducts from '../../api/requests/getAllProducts';
+import Orders from './Orders';
+import CustomerOrderId from './CustomerOrderId';
 import ProductBox from '../../components/cards/ProductBox';
 import { getStorage } from '../../utils/localStorage';
+import Navbar from '../../components/Navbar';
 
 function Customer() {
   const [user, setUser] = useState('Default User');
@@ -23,15 +26,24 @@ function Customer() {
 
   return (
     <div>
-      <p>{user.name}</p>
+      <Navbar>{user.name}</Navbar>
+
       <Routes>
         <Route
           path="/products"
           element={ <ProductBox products={ products } /> }
         />
-        {/* <div>placeholder text</div>
-        <p>{user}</p>
-        <p>{products}</p> */}
+
+        <Route
+          path="/orders"
+          element={ <Orders /> }
+        />
+
+        <Route
+          path="/orders/:id"
+          element={ <CustomerOrderId /> }
+        />
+
       </Routes>
     </div>
   );
