@@ -19,7 +19,7 @@ salesRoutes
 
   .put('/:id',
     (req, res, next) => tokenAuth.handle(req, res, next),
-    (req, res) => salesController.updateOne(req, res))
+    (req, res, next) => salesController.updateOne(req, res, next))
 
   .delete('/:id',
     (req, res, next) => tokenAuth.handle(req, res, next),

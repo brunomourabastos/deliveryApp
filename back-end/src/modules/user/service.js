@@ -77,7 +77,7 @@ class UsersService {
   }
 
   async getAllSellers() {
-    return this.userImplementation.getAllSellers('seller').then((sellers) => sellers);
+    return this.userImplementation.getAllRole('seller').then((sellers) => sellers);
   }
 
   async deleteUser(userId) {
