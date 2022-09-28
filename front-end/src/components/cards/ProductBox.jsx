@@ -1,14 +1,25 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProductCard from './ProductCard';
 import OrderContext from '../../context/order/OrderContext';
+import getAllProducts from '../../api/requests/getAllProducts';
 
-function ProductBox({ products }) {
+function ProductBox() {
   const navigation = useNavigate();
   const { total } = useContext(OrderContext);
+  const [products, setProducts] = useState([]);
 
   const serialize = (price) => price.toFixed(2).toString().replace('.', ',');
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data: allProducts } = await getAllProducts();
+      setProducts(allProducts);
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <>

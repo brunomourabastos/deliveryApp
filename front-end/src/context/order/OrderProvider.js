@@ -17,7 +17,7 @@ function OrderProvider({ children }) {
       cart,
       setCart,
       total,
-    }), [cart, setCart, total]);
+    }), [cart, total]);
 
   return (
     <OrderContext.Provider value={ value }>

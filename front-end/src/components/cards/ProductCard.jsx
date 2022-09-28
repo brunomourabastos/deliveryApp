@@ -24,11 +24,10 @@ function ProductCard({ id, description, price, img }) {
       quantity,
       subTotal,
     };
-
     const cartFiltered = cart.filter((product) => product.product !== productId);
     if (quantity === 0) return setCart(cartFiltered);
     setCart([...cartFiltered, productUpdated]);
-  }, [cart, productDescription, productId, productPrice, quantity, setCart, subTotal]);
+  }, [quantity]);
 
   useEffect(() => {
     setSubTotal(productPrice * quantity);
