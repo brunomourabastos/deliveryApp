@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import DeliveryDetails from '../../components/cards/DeliveryDetails';
 import OrderContext from '../../context/order/OrderContext';
 
 function Checkout() {
@@ -78,10 +79,15 @@ function Checkout() {
           }
         </tbody>
       </table>
-
-      <span data-testid="customer_checkout__element-order-total-price">
-        {+(total)}
-      </span>
+      <div>
+        Total R$
+        <span data-testid="customer_checkout__element-order-total-price">
+          {+(total)}
+        </span>
+      </div>
+      <div>
+        <DeliveryDetails />
+      </div>
     </div>
   );
 }
