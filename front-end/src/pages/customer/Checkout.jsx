@@ -6,8 +6,8 @@ function Checkout() {
   const { cart, setCart, total } = useContext(OrderContext);
 
   const tableDataId = 'customer_checkout__element-order-table';
-  const removeItem = (event) => {
-    setCart(cart.filter((product) => product.productId !== (+event.target.value + 1)));
+  const removeItem = (itemId) => {
+    setCart(cart.filter((product) => product.productId !== +(itemId)));
   };
 
   return (
@@ -67,8 +67,8 @@ function Checkout() {
                   <button
                     data-testid={ `${tableDataId}-remove-${index}` }
                     type="button"
-                    value={ index }
-                    onClick={ (event) => (removeItem(event)) }
+                    value={ product.productId }
+                    onClick={ ({ target }) => (removeItem(target.value)) }
                   >
                     Remover
                   </button>
