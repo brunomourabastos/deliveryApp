@@ -2,12 +2,12 @@ import { useContext } from 'react';
 import OrderContext from '../../context/order/OrderContext';
 
 function Checkout() {
+  console.log('estou na página checkout');
   const { cart, setCart, total } = useContext(OrderContext);
 
   const tableDataId = 'customer_checkout__element-order-table';
-
-  const removeItem = () => {
-    setCart(cart.filter((product) => product.productId !== item));
+  const removeItem = (event) => {
+    setCart(cart.filter((product) => product.productId !== (+event.target.value + 1)));
   };
 
   return (
@@ -67,7 +67,8 @@ function Checkout() {
                   <button
                     data-testid={ `${tableDataId}-remove-${index}` }
                     type="button"
-                    onClick={ removeItem }
+                    value={ index }
+                    onClick={ (event) => (removeItem(event)) }
                   >
                     Remover
                   </button>

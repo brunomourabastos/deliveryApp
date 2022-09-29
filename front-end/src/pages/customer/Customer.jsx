@@ -27,7 +27,7 @@ function Customer() {
         />
 
         <Route
-          path="/customer/checkout"
+          path="/checkout"
           element={ <Checkout /> }
         />
 
