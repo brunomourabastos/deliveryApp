@@ -4,7 +4,7 @@ import OrderContext from '../../context/order/OrderContext';
 import QuantityInput from '../inputs/QuantityInput';
 
 const dataTestId = 'customer_products__element-card-price-';
-const dataTestIdImg = 'customer_products__img-card-bg-image-';
+// const dataTestIdImg = 'customer_products__img-card-bg-image-';
 const dataTestIdDescription = 'customer_products__element-card-title-';
 
 function ProductCard({ id, description, price, img }) {
@@ -33,22 +33,21 @@ function ProductCard({ id, description, price, img }) {
     setSubTotal(productPrice * quantity);
   }, [productPrice, quantity]);
 
-  const FOUR = 4;
-
-  const serializeZeros = (str, numberOfZeros) => str.padStart(numberOfZeros, 0);
+  // const FOUR = 4;
+  // const serializeZeros = (str, numberOfZeros) => str.padStart(numberOfZeros, 0);
 
   return (
     <div
-      data-testid={ dataTestId + productId }
       key={ productId }
     >
 
       <span data-testid={ dataTestId + productId }>
-        { `${serializeZeros(productPrice.toString(), FOUR)}` }
+        { `${price.replace('.', ',')}` }
       </span>
 
       <img
-        data-testid={ dataTestIdImg + productId }
+        width={ 50 }
+        data-testid={ `customer_products__img-card-bg-image-${productId}` }
         src={ img }
         alt={ productDescription }
       />
