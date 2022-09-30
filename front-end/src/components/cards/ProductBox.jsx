@@ -1,13 +1,36 @@
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProductCard from './ProductCard';
 import OrderContext from '../../context/order/OrderContext';
+import getAllProducts from '../../api/requests/getAllProducts';
 
-function ProductBox({ products }) {
+function ProductBox() {
   const navigation = useNavigate();
-  const { total } = useContext(OrderContext);
+  const { cart } = useContext(OrderContext);
+  const [products, setProducts] = useState([]);
+  const [totalPrice, setTotalPrice] = useState([]);
 
   const serialize = (price) => price.toFixed(2).toString().replace('.', ',');
+
+  useEffect(() => {
+    let sum = 0;
+    const priceByItem = cart.map((element) => element.quantity * element.productPrice);
+    priceByItem.forEach((elem) => {
+      sum += elem;
+    });
+    if (priceByItem.length) setTotalPrice(sum);
+  }, [cart]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const { data: allProducts } = await getAllProducts();
+      console.log(allProducts);
+      setProducts(allProducts);
+    };
+
+    fetchProducts();
+  }, []);
 
   return (
     <>
@@ -22,14 +45,13 @@ function ProductBox({ products }) {
       ))}
 
       <button
-        data-testId="customer_products__button-cart"
+        data-testid="customer_products__button-cart"
         type="button"
-        total={ total }
-        disabled={ +(total) === 0 }
+        disabled={ +(totalPrice) === 0 }
         onClick={ () => navigation('../checkout', { replace: true }) }
       >
-        <span data-testId="customer_products__checkout-bottom-value">
-          { serialize(+total) }
+        <span data-testid="customer_products__checkout-bottom-value">
+          { serialize(+totalPrice) }
         </span>
       </button>
     </>
