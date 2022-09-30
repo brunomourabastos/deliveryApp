@@ -25,7 +25,6 @@ function ProductBox() {
   useEffect(() => {
     const fetchProducts = async () => {
       const { data: allProducts } = await getAllProducts();
-      console.log(allProducts);
       setProducts(allProducts);
     };
 
