@@ -12,8 +12,9 @@ function ProductCard({ id, description, price, img }) {
   const [productDescription] = useState(description);
   const [productPrice] = useState(+(price));
   const [quantity, setQuantity] = useState(0);
-  const [subTotal, setSubTotal] = useState(0.00);
-
+  const [subTotal, setSubTotal] = useState(quantity * productPrice);
+  console.log(`quantidade ${quantity}`);
+  console.log(`preço total${subTotal}`);
   const { cart, setCart } = useContext(OrderContext);
 
   useEffect(() => {
@@ -24,15 +25,27 @@ function ProductCard({ id, description, price, img }) {
       quantity,
       subTotal,
     };
-    const cartFiltered = cart.filter((product) => product.product !== productId);
-    if (quantity === 0) return setCart(cartFiltered);
-    setCart([...cartFiltered, productUpdated]);
+
+    let productsArray = [...cart];
+    productsArray.forEach((product, index) => {
+      if (product.productId === productUpdated.productId) {
+        productsArray[index] = productUpdated;
+      }
+    });
+    const cartProducts = productsArray.some((product) => productId === product.productId);
+    if (quantity > 0 && !cartProducts) {
+      productsArray = [...cart, productUpdated];
+    }
+    setCart(productsArray);
   }, [quantity]);
 
   useEffect(() => {
     setSubTotal(productPrice * quantity);
   }, [productPrice, quantity]);
 
+  useEffect(() => {
+    setQuantity(quantity);
+  }, [quantity]);
   // const FOUR = 4;
   // const serializeZeros = (str, numberOfZeros) => str.padStart(numberOfZeros, 0);
 

@@ -1,15 +1,30 @@
-import { useContext } from 'react';
+import { useEffect, useContext } from 'react';
 import DeliveryDetails from '../../components/cards/DeliveryDetails';
 import OrderContext from '../../context/order/OrderContext';
 
 function Checkout() {
-  console.log('estou na página checkout');
-  const { cart, setCart, total } = useContext(OrderContext);
+  const { cart, setCart, total, setTotal } = useContext(OrderContext);
 
   const tableDataId = 'customer_checkout__element-order-table';
   const removeItem = (itemId) => {
     setCart(cart.filter((product) => product.productId !== +(itemId)));
   };
+
+  const totalPriceOrder = () => {
+    const sum = cart.reduce((acc, item) => {
+      acc += item.quantity * item.productPrice;
+      return acc;
+    }, 0);
+    setTotal(sum);
+    return sum;
+  };
+
+  useEffect(() => {
+    if (cart.length === 0) {
+      setTotal(0);
+    }
+    totalPriceOrder();
+  }, [cart]);
 
   return (
     <div>
@@ -60,7 +75,8 @@ function Checkout() {
                 <td
                   data-testid={ `${tableDataId}-sub-total-${index}` }
                 >
-                  {product.subTotal}
+                  {(product.quantity * product.productPrice)
+                    .toFixed(2).toString().replace('.', ',')}
                 </td>
 
                 <td>
@@ -82,7 +98,7 @@ function Checkout() {
       <div>
         Total R$
         <span data-testid="customer_checkout__element-order-total-price">
-          {+(total)}
+          {total.toString().replace('.', ',')}
         </span>
       </div>
       <div>
