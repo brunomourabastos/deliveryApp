@@ -15,7 +15,7 @@ function Checkout() {
       acc += item.quantity * item.productPrice;
       return acc;
     }, 0);
-    setTotal(sum);
+    setTotal(sum.toFixed(2));
     return sum;
   };
 
