@@ -1,3 +1,4 @@
+const { StatusCodes } = require('http-status-codes');
 const { CustomError } = require('../../../utils/CustomError');
 const { SalesImplementation } = require('./implementation');
 const SaleProduct = require('../../database/models/SalesProducts');
@@ -21,9 +22,10 @@ class SalesServices {
       deliveryNumber,
     })
       .then(async (newSale) => {
-        await this.salesProductsModel.bulkCreate(products.map((product) => (
-            { saleId: newSale.id, productId: product.id, quantity: product.quantity }
-          )));
+        const newSalesProducts = products.map((product) => (
+          { saleId: newSale.id, productId: product.id, quantity: product.quantity }
+        ));
+        await this.salesProductsModel.bulkCreate(newSalesProducts);
         return newSale;
       });
   }
@@ -39,11 +41,15 @@ class SalesServices {
       });
   }
 
-  readBySellerId(id) {
-    return this.salesImplementation.readBySellerId(id).then((sales) => sales);
+  readAllById(id, role) {
+    const whereQuery = (role === 'seller') ? { sellerId: id } : { userId: id };
+    return this.salesImplementation.readAllById(whereQuery).then((sales) => sales);
   }
 
-  async updateOne(id, status) {
+  async updateOne(id, status, role) {
+    if (role !== 'seller') {
+      throw new CustomError(StatusCodes.FORBIDDEN, 'Must be a seller to update order status');
+    }
     await this.readOne(id).then(async (sale) => {
       const updatedSale = {
         id: sale.id,

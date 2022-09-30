@@ -5,6 +5,7 @@ class GlobalError {
   }
 
   handle(error, _req, res, _next) {
+    console.log(error);
     const errStatus = error.status || this.defaultStatus;
     const errMessage = error.message || this.defaultMessage;
     return res.status(errStatus).json({ message: errMessage });

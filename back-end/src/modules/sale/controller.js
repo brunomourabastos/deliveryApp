@@ -23,16 +23,17 @@ class SalesController {
       .then((sale) => res.status(StatusCodes.OK).json(sale));
   }
 
-  readBySellerId(req, res) {
-    const { id } = req.headers.userData;
-    return this.salesService.readBySellerId(id)
+  readAllById(req, res) {
+    const { id, role } = req.headers.userData;
+    return this.salesService.readAllById(id, role)
       .then((sales) => res.status(StatusCodes.OK).json(sales));
   }
 
   updateOne(req, res) {
     const { id } = req.params;
     const { status } = req.body;
-    return this.salesService.updateOne(id, status)
+    const { role } = req.headers.userData;
+    return this.salesService.updateOne(id, status, role)
       .then(() => res.status(StatusCodes.OK).json('Successfully updated'));
   }
 
