@@ -13,8 +13,6 @@ function ProductCard({ id, description, price, img }) {
   const [productPrice] = useState(+(price));
   const [quantity, setQuantity] = useState(0);
   const [subTotal, setSubTotal] = useState(quantity * productPrice);
-  console.log(`quantidade ${quantity}`);
-  console.log(`preço total${subTotal}`);
   const { cart, setCart } = useContext(OrderContext);
 
   useEffect(() => {

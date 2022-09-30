@@ -24,6 +24,7 @@ function Checkout() {
       setTotal(0);
     }
     totalPriceOrder();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
 
   return (
@@ -55,7 +56,7 @@ function Checkout() {
                 </td>
 
                 <td
-                  data-testid={ `${tableDataId}-table-name-${index}` }
+                  data-testid={ `${tableDataId}-name-${index}` }
                 >
                   {product.productDescription}
                 </td>
@@ -69,7 +70,7 @@ function Checkout() {
                 <td
                   data-testid={ `${tableDataId}-unit-price-${index}` }
                 >
-                  {product.productPrice}
+                  {(product.productPrice).toFixed(2).toString().replace('.', ',')}
                 </td>
 
                 <td
