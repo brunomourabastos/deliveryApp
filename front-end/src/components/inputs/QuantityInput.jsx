@@ -5,20 +5,25 @@ function QuantityInput({ id, setCardQuantity }) {
   const [quantity, setQuantity] = useState(0);
 
   const increment = () => {
-    setQuantity((acc) => acc + 1);
+    setQuantity(quantity + 1);
   };
 
   const decrement = () => {
-    if (quantity > 0) setQuantity((acc) => acc - 1);
+    if (quantity <= 0) {
+      return 0;
+    }
+    setQuantity(quantity - 1);
   };
 
-  const setValue = ({ target: { value } }) => (
-    (value < 0) ? setQuantity(0) : setQuantity(value)
-  );
+  const setValue = ({ target: { value } }) => {
+    if (+value) {
+      setQuantity(+value);
+    }
+  };
 
   useEffect(() => {
     setCardQuantity(quantity);
-  }, [quantity, setCardQuantity]);
+  }, [quantity]);
 
   return (
     <div className="quantity-container">
@@ -35,9 +40,8 @@ function QuantityInput({ id, setCardQuantity }) {
         data-testid={ `customer_products__input-card-quantity-${id}` }
         id="quantity"
         type="number"
-        min={ 0 }
         value={ quantity }
-        onChange={ setValue }
+        onChange={ (event) => (setValue(event)) }
       />
 
       <button

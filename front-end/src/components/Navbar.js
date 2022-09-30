@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import getLocalStorage from '../services/getLocalStorage';
 
@@ -6,26 +6,24 @@ export default function Navbar() {
   const [userStored, setUserStored] = useState({
     userName: '',
     role: '',
+    control: 1,
   });
 
   const navigate = useNavigate();
   // https://reactrouter.com/en/main/hooks/use-navigate
 
-  const getUser = getLocalStorage('user');
-
   useEffect(() => {
+    const getUser = getLocalStorage('user');
     if (!getUser) {
-      navigate('/login');
       console.log('voltou para login');
+      return navigate('/login');
     }
+    const { name, role } = getUser;
+    setUserStored((prevState) => ({ ...prevState, userName: name, role }));
+    console.log(`fez o login de ${role}`);
 
-    if (getUser) {
-      const { name, role } = getUser;
-      setUserStored({ userName: name, role });
-      console.log(`fez o login de ${role}`);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getUser, navigate]);
+  }, [userStored.control]);
 
   const logout = () => {
     localStorage.removeItem('user');

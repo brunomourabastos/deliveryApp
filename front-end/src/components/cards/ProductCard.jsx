@@ -1,17 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import OrderContext from '../../context/order/OrderContext';
 import QuantityInput from '../inputs/QuantityInput';
 
 const dataTestId = 'customer_products__element-card-price-';
-const dataTestIdImg = 'customer_products__img-card-bg-image-';
+// const dataTestIdImg = 'customer_products__img-card-bg-image-';
 const dataTestIdDescription = 'customer_products__element-card-title-';
 
 function ProductCard({ id, description, price, img }) {
   const [productId] = useState(id);
   const [productDescription] = useState(description);
   const [productPrice] = useState(+(price));
-
+  const [quantity, setQuantity] = useState(0);
+  const [subTotal, setSubTotal] = useState(quantity * productPrice);
+  console.log(`quantidade ${quantity}`);
+  console.log(`preço total${subTotal}`);
   const { cart, setCart } = useContext(OrderContext);
 
   useEffect(() => {
@@ -20,27 +23,45 @@ function ProductCard({ id, description, price, img }) {
       productDescription,
       productPrice,
       quantity,
-      subtotal,
+      subTotal,
     };
 
-    const cartFiltered = cart.filter((product) => product.product !== productId);
-    if (quantity === 0) return setCart(cartFiltered);
-    setCart([...cartFiltered, productUpdated]);
-  }, [cart, productDescription, productId, productPrice, setCart]);
+    let productsArray = [...cart];
+    productsArray.forEach((product, index) => {
+      if (product.productId === productUpdated.productId) {
+        productsArray[index] = productUpdated;
+      }
+    });
+    const cartProducts = productsArray.some((product) => productId === product.productId);
+    if (quantity > 0 && !cartProducts) {
+      productsArray = [...cart, productUpdated];
+    }
+    setCart(productsArray);
+  }, [quantity]);
+
+  useEffect(() => {
+    setSubTotal(productPrice * quantity);
+  }, [productPrice, quantity]);
+
+  useEffect(() => {
+    setQuantity(quantity);
+  }, [quantity]);
+  // const FOUR = 4;
+  // const serializeZeros = (str, numberOfZeros) => str.padStart(numberOfZeros, 0);
 
   return (
     <div
-      data-testid={ dataTestId + productId }
       key={ productId }
     >
 
       <span data-testid={ dataTestId + productId }>
-        { `${replaceDotToSemiColon(productPrice)}` }
+        { `${price.replace('.', ',')}` }
       </span>
 
       <img
-        data-testid={ dataTestIdImg + productId }
-        src={ imagesPath + img }
+        width={ 50 }
+        data-testid={ `customer_products__img-card-bg-image-${productId}` }
+        src={ img }
         alt={ productDescription }
       />
 

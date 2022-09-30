@@ -41,6 +41,7 @@ export default function Login() {
     });
     const response = await data.json();
     localStorage.setItem('token', response.token);
+    localStorage.setItem('user', JSON.stringify(response));
     console.log(response);
 
     if (response.message === 'User not found') {
