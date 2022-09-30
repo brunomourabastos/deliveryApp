@@ -9,7 +9,7 @@ class SalesController {
   create(req, res) {
     const { id } = req.headers.userData;
     return this.salesService.create(id, req.body)
-      .then((sale) => res.status(StatusCodes.CREATED).json(sale));
+      .then((saleId) => res.status(StatusCodes.CREATED).json({ saleId }));
   }
 
   readAll(_req, res) {
@@ -32,8 +32,7 @@ class SalesController {
   updateOne(req, res) {
     const { id } = req.params;
     const { status } = req.body;
-    const { role } = req.headers.userData;
-    return this.salesService.updateOne(id, status, role)
+    return this.salesService.updateOne(id, status)
       .then(() => res.status(StatusCodes.OK).json('Successfully updated'));
   }
 

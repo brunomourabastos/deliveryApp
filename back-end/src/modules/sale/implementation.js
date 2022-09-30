@@ -1,10 +1,10 @@
 const Sales = require('../../database/models/Sales');
-const Users = require('../../database/models/Users');
+const Products = require('../../database/models/Products');
 
 class SalesImplementation {
   constructor() {
     this.sequelizeSaleModel = Sales;
-    this.sequelizeUserModel = Users;
+    this.sequelizeProductsModel = Products;
   }
 
   create(sale) {
@@ -24,8 +24,10 @@ class SalesImplementation {
   }
 
   readOne(id) {
-    return this.sequelizeSaleModel.findByPk(id, { attributes: { exclude: ['userId', 'SellerId'] } })
-      .then((sale) => sale);
+    return this.sequelizeSaleModel.findByPk(id, {
+      include: { model: Products, as: 'saleProducts' },
+      attributes: { exclude: ['userId', 'sellerId'] },
+    }).then((sale) => sale);
   }
 
   async updateOne(id, sale) {

@@ -26,7 +26,7 @@ class SalesServices {
           { saleId: newSale.id, productId: product.id, quantity: product.quantity }
         ));
         await this.salesProductsModel.bulkCreate(newSalesProducts);
-        return newSale;
+        return newSale.id;
       });
   }
 
@@ -36,7 +36,7 @@ class SalesServices {
 
   readOne(id) {
     return this.salesImplementation.readOne(id).then((sale) => {
-        if (!sale) throw new CustomError(404, 'Sale not found');
+        if (!sale) throw new CustomError(StatusCodes.NOT_FOUND, 'Sale not found');
         return sale;
       });
   }
@@ -46,10 +46,7 @@ class SalesServices {
     return this.salesImplementation.readAllById(whereQuery).then((sales) => sales);
   }
 
-  async updateOne(id, status, role) {
-    if (role !== 'seller') {
-      throw new CustomError(StatusCodes.FORBIDDEN, 'Must be a seller to update order status');
-    }
+  async updateOne(id, status) {
     await this.readOne(id).then(async (sale) => {
       const updatedSale = {
         id: sale.id,
