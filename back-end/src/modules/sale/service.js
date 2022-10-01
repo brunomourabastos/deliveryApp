@@ -9,20 +9,18 @@ class SalesServices {
   }
 
   create(userId, saleData) {
-    const { sellerId, products, deliveryAddress, deliveryNumber } = saleData;
+    const { sellerId, products, deliveryAddress, deliveryNumber, total } = saleData;
 
-    const totalPrice = products
-      .reduce((acc, product) => acc + (product.price * product.quantity), 0);
     return this.salesImplementation.create({
       userId,
       sellerId,
-      totalPrice,
       deliveryAddress,
       deliveryNumber,
+      total,
     })
       .then(async (newSale) => {
         await this.salesProductsModel.bulkCreate(products.map((product) => (
-            { saleId: newSale.id, productId: product.id, quantity: product.quantity }
+            { saleId: newSale.id, productId: product.productId, quantity: product.quantity }
           )));
         return newSale;
       });
