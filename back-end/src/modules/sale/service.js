@@ -10,16 +10,14 @@ class SalesServices {
   }
 
   create(userId, saleData) {
-    const { sellerId, products, deliveryAddress, deliveryNumber } = saleData;
+    const { sellerId, products, deliveryAddress, deliveryNumber, total } = saleData;
 
-    const totalPrice = products
-      .reduce((acc, product) => acc + (product.price * product.quantity), 0);
     return this.salesImplementation.create({
       userId,
       sellerId,
-      totalPrice,
       deliveryAddress,
       deliveryNumber,
+      totalPrice: total,
     })
       .then(async (newSale) => {
         const newSalesProducts = products.map((product) => (

@@ -2,11 +2,8 @@ import PropTypes from 'prop-types';
 
 const idTable = 'customer_order_details__element-order-table';
 
-function OrderTable({ order: {
-  id,
-  productsList,
-},
-}) {
+function OrderTable(order) {
+  console.log('essas são minhas orders ', order);
   return (
     <div>
       <table>
