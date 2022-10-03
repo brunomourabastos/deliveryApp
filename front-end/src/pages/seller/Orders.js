@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import getSales from '../../services/getSales';
+import { format } from 'date-fns';
+import getSales from '../../api/requests/getSales';
 import Navbar from '../../components/Navbar';
 
 export default function SellerOrders() {
@@ -46,12 +47,12 @@ export default function SellerOrders() {
             <p
               data-testid={ `seller_orders__element-order-date-${order.id}` }
             >
-              { order.saleDate }
+              { order.saleDate ? format(Date.parse(order.saleDate), 'dd/MM/yyyy') : null }
             </p>
             <p
               data-testid={ `seller_orders__element-card-price-${order.id}` }
             >
-              { order.totalPrice.toFixed(2).replace('.', ',') }
+              { order.totalPrice.toString().replace('.', ',') }
             </p>
             <p
               data-testid={ `seller_orders__element-card-address-${order.id}` }
