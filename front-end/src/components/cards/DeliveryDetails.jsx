@@ -33,7 +33,6 @@ export default function DeliveryDetails() {
     setLoading(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const createSale = async () => {
     const totalOrder = {
       sellerId,
@@ -44,7 +43,7 @@ export default function DeliveryDetails() {
     };
     const createdOrder = await createOrder(totalOrder, USERTOKEN);
     const myData = await createdOrder.json();
-    navigateTo(`/customer/orders/${myData.id}`);
+    navigateTo(`/customer/orders/${myData.saleId}`);
   };
 
   return (
