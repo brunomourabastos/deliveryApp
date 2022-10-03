@@ -22,19 +22,12 @@ export default function SellerOrderDetails() {
       await requestSalesSeller(`/sales/${id}`, headers, setOrder);
     }
     fetchData();
-    console.log(order);
   }, []);
 
-  const getOrderReady = () => {
-    updateOrder(`/sales/${id}`, { status: 'Preparando' }, headers);
+  const upDateOrder = (situation) => {
+    updateOrder(`/sales/${id}`, { status: situation }, headers);
     const cloneOrder = order;
-    setOrder({ ...cloneOrder, status: 'Preparando' });
-  };
-
-  const dispatchOrder = () => {
-    updateOrder(`/sales/${id}`, { status: 'Em Trânsito' }, headers);
-    const cloneOrder = order;
-    setOrder({ ...cloneOrder, status: 'Em Trânsito' });
+    setOrder({ ...cloneOrder, status: situation });
   };
 
   return (
@@ -61,7 +54,7 @@ export default function SellerOrderDetails() {
           <button
             data-testid="seller_order_details__button-preparing-check"
             type="button"
-            onClick={ getOrderReady }
+            onClick={ () => upDateOrder('Preparando') }
             disabled={ !(order.status === 'Pendente' || order.status === undefined) }
           >
             PREPARAR PEDIDO
@@ -69,7 +62,7 @@ export default function SellerOrderDetails() {
           <button
             data-testid="seller_order_details__button-dispatch-check"
             type="button"
-            onClick={ dispatchOrder }
+            onClick={ () => upDateOrder('Em Trânsito') }
             disabled={ !(order.status === 'Preparando' || order.status === undefined) }
           >
             SAIU PARA ENTREGA

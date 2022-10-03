@@ -42,8 +42,6 @@ export default function Login() {
     const response = await data.json();
     localStorage.setItem('token', response.token);
     localStorage.setItem('user', JSON.stringify(response));
-    console.log(response);
-    console.log(response.token);
 
     if (response.message === 'User not found') {
       setNotFoundUser(true);

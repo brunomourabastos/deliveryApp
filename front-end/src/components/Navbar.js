@@ -15,12 +15,10 @@ export default function Navbar() {
   useEffect(() => {
     const getUser = getLocalStorage('user');
     if (!getUser) {
-      console.log('voltou para login');
       return navigate('/login');
     }
     const { name, role } = getUser;
     setUserStored((prevState) => ({ ...prevState, userName: name, role }));
-    console.log(`fez o login de ${role}`);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userStored.control]);

@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { format } from 'date-fns';
 import getOrderId from '../../api/requests/getOrderId';
 import OrderTable from '../../components/cards/OrderTable';
+import updateOrder from '../../api/requests/updateOrder';
 
 const DATATESTID37 = 'customer_order_details__element-order-details-label-order-id';
 const DATATESTID38 = 'customer_order_details__element-order-details-label-seller-name';
@@ -17,11 +18,21 @@ function CustomerOrderId() {
     const getById = async () => {
       const { data: sale } = await getOrderId(id);
       setOrder(sale);
-      console.log(sale);
     };
 
     getById();
   }, [id]);
+
+  const { token } = JSON.parse(localStorage.getItem('user'));
+  const headers = { headers: {
+    Authorization: token,
+  } };
+
+  const dispatchOrder = () => {
+    updateOrder(`/sales/${id}`, { status: 'Entregue' }, headers);
+    const cloneOrder = order;
+    setOrder({ ...cloneOrder, status: 'Entregue' });
+  };
 
   return (
     <div>
@@ -48,7 +59,8 @@ function CustomerOrderId() {
             <button
               data-testid={ TESTID47 }
               type="button"
-              disabled
+              onClick={ dispatchOrder }
+              disabled={ (order.status !== 'Em Trânsito') }
             >
               Marcar como Entregue
 
