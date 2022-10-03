@@ -1,3 +1,4 @@
+const { StatusCodes } = require('http-status-codes');
 const { CustomError } = require('../../../utils/CustomError');
 const { SalesImplementation } = require('./implementation');
 const SaleProduct = require('../../database/models/SalesProducts');
@@ -19,10 +20,11 @@ class SalesServices {
       totalPrice: total,
     })
       .then(async (newSale) => {
-        await this.salesProductsModel.bulkCreate(products.map((product) => (
-            { saleId: newSale.id, productId: product.productId, quantity: product.quantity }
-          )));
-        return newSale;
+        const newSalesProducts = products.map((product) => (
+          { saleId: newSale.id, productId: product.id, quantity: product.quantity }
+        ));
+        await this.salesProductsModel.bulkCreate(newSalesProducts);
+        return newSale.id;
       });
   }
 
@@ -32,13 +34,14 @@ class SalesServices {
 
   readOne(id) {
     return this.salesImplementation.readOne(id).then((sale) => {
-        if (!sale) throw new CustomError(404, 'Sale not found');
+        if (!sale) throw new CustomError(StatusCodes.NOT_FOUND, 'Sale not found');
         return sale;
       });
   }
 
-  readBySellerId(id) {
-    return this.salesImplementation.readBySellerId(id).then((sales) => sales);
+  readAllById(id, role) {
+    const whereQuery = (role === 'seller') ? { sellerId: id } : { userId: id };
+    return this.salesImplementation.readAllById(whereQuery).then((sales) => sales);
   }
 
   async updateOne(id, status) {
