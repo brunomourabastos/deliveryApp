@@ -47,9 +47,7 @@ function OrderTable({ order }) {
       </table>
 
       <p data-testid="customer_order_details__element-order-total-price">
-        Total: R$:
-        {' '}
-        {order.totalPrice}
+        {order.totalPrice.toString().replace('.', ',')}
       </p>
     </div>
   );

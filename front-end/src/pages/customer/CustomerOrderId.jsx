@@ -48,6 +48,7 @@ function CustomerOrderId() {
             <button
               data-testid={ TESTID47 }
               type="button"
+              disabled
             >
               Marcar como Entregue
 
