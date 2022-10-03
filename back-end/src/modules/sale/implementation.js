@@ -1,31 +1,33 @@
 const Sales = require('../../database/models/Sales');
-const Users = require('../../database/models/Users');
+const Products = require('../../database/models/Products');
 
 class SalesImplementation {
   constructor() {
     this.sequelizeSaleModel = Sales;
-    this.sequelizeUserModel = Users;
+    this.sequelizeProductsModel = Products;
   }
 
-  async create(sale) {
+  create(sale) {
     return this.sequelizeSaleModel.create(sale).then((newSale) => newSale);
   }
 
-  async readAll() {
+  readAll() {
     return this.sequelizeSaleModel.findAll({ attributes: { exclude: ['userId', 'sellerId'] } })
       .then((sales) => sales);
   }
 
-  async readBySellerId(id) {
+  readAllById(whereQuery) {
     return this.sequelizeSaleModel.findAll({
-      where: { sellerId: id },
+      where: whereQuery,
       attributes: { exclude: ['userId', 'sellerId'] },
     }).then((sales) => sales);
   }
 
-  async readOne(id) {
-    return this.sequelizeSaleModel.findByPk(id, { attributes: { exclude: ['userId', 'SellerId'] } })
-      .then((sale) => sale);
+  readOne(id) {
+    return this.sequelizeSaleModel.findByPk(id, {
+      include: { model: Products, as: 'saleProducts' },
+      attributes: { exclude: ['userId', 'sellerId'] },
+    }).then((sale) => sale);
   }
 
   async updateOne(id, sale) {

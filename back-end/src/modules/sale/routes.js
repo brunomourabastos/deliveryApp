@@ -7,7 +7,7 @@ const salesRoutes = Router();
 salesRoutes
   .get('/',
     (req, res, next) => tokenAuth.handle(req, res, next),
-    (req, res) => salesController.readBySellerId(req, res))
+    (req, res) => salesController.readAllById(req, res))
 
   .get('/:id',
     (req, res, next) => tokenAuth.handle(req, res, next), 

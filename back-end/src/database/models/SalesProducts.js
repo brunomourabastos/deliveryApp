@@ -40,6 +40,6 @@ SalesProducts.init({
   });
 
 Products.belongsToMany(Sales, { through: SalesProducts, foreignKey: 'productId', as: "productsSales" });
-Sales.belongsToMany(Products, { through: SalesProducts, foreignKey: 'saleId', as: "salesProducts" });
+Sales.belongsToMany(Products, { through: SalesProducts, foreignKey: 'saleId', as: "saleProducts" });
 
 module.exports = SalesProducts;
