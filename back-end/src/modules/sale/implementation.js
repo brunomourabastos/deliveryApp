@@ -1,5 +1,6 @@
 const Sales = require('../../database/models/Sales');
 const Products = require('../../database/models/Products');
+const Users = require('../../database/models/Users');
 
 class SalesImplementation {
   constructor() {
@@ -25,7 +26,8 @@ class SalesImplementation {
 
   readOne(id) {
     return this.sequelizeSaleModel.findByPk(id, {
-      include: { model: Products, as: 'saleProducts' },
+      include: [{ model: Products, as: 'saleProducts', through: { attributes: ['quantity'] } }, 
+      { model: Users, as: 'seller', attributes: ['name'] }],
       attributes: { exclude: ['userId', 'sellerId'] },
     }).then((sale) => sale);
   }

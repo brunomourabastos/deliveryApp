@@ -10,7 +10,7 @@ const Orders = () => {
     const fetchOrdersByClient = async () => {
       const { id } = getStorage('user');
       const { data: orders } = await getOrderByClient(id);
-
+      console.log(orders);
       setAllOrdersByClient(orders);
     };
 
@@ -18,7 +18,7 @@ const Orders = () => {
   }, []);
 
   return (
-    allOrdersByClient.length > 0 && allOrdersByClient.map((order) => (
+    allOrdersByClient && allOrdersByClient.map((order) => (
       <CustomerOrderCard
         key={ order.id }
         orderCode={ order.id }

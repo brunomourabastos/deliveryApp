@@ -21,7 +21,7 @@ class SalesServices {
     })
       .then(async (newSale) => {
         const newSalesProducts = products.map((product) => (
-          { saleId: newSale.id, productId: product.id, quantity: product.quantity }
+          { saleId: newSale.id, productId: product.productId, quantity: product.quantity }
         ));
         await this.salesProductsModel.bulkCreate(newSalesProducts);
         return newSale.id;

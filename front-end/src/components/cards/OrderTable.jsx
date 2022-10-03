@@ -2,8 +2,11 @@ import PropTypes from 'prop-types';
 
 const idTable = 'customer_order_details__element-order-table';
 
-function OrderTable(order) {
-  console.log('essas são minhas orders ', order);
+function OrderTable({ order }) {
+  console.log(order);
+  const productList = order.saleProducts;
+  console.log(order.totalPrice);
+
   return (
     <div>
       <table>
@@ -20,22 +23,22 @@ function OrderTable(order) {
         </thead>
 
         <tbody>
-          { productsList.map(({ name, quantity, price, subTotal }, index) => (
+          { productList.map(({ name, price, SalesProducts }, index) => (
             <tr key={ index }>
               <td data-testid={ `${idTable}-item-number-${index}` }>
-                {id}
+                {index + 1}
               </td>
               <td data-testid={ `${idTable}-name-${index}` }>
                 {name}
               </td>
               <td data-testid={ `${idTable}-quantity-${index}` }>
-                {quantity}
+                {SalesProducts.quantity}
               </td>
               <td data-testid={ `${idTable}-unit-price-${index}` }>
                 {price}
               </td>
               <td data-testid={ `${idTable}-sub-total-${index}` }>
-                {subTotal}
+                {SalesProducts.quantity * price}
               </td>
             </tr>
           ))}
@@ -44,9 +47,7 @@ function OrderTable(order) {
       </table>
 
       <p data-testid="customer_order_details__element-order-total-price">
-        Total: R$:
-        {' '}
-        {price}
+        {order.totalPrice.toString().replace('.', ',')}
       </p>
     </div>
   );
@@ -54,9 +55,10 @@ function OrderTable(order) {
 
 OrderTable.propTypes = {
   order: PropTypes.shape({
+    totalPrice: PropTypes.string,
     id: PropTypes.number,
     price: PropTypes.string,
-    productsList: PropTypes.arrayOf(PropTypes.shape({
+    saleProducts: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string,
       quantity: PropTypes.number,

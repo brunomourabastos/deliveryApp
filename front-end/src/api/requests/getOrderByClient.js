@@ -11,7 +11,7 @@ const tokenAuth = () => {
   };
 };
 
-const getOrderByClient = async (id) => api
-  .get(`/products/purchaseHistory/${id}`, tokenAuth());
+const getOrderByClient = async () => api
+  .get('/sales', tokenAuth());
 
 export default getOrderByClient;
