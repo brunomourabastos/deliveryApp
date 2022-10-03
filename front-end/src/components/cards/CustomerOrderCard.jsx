@@ -7,7 +7,6 @@ const DATATESTID34 = 'customer_orders__element-delivery-status-';
 const FOUR = 4;
 
 function CustomerOrderCard(order) {
-  console.log(order);
   const { orderCode, statusOrder, dateOrder, priceTotal } = order;
   const redirect = useNavigate();
 

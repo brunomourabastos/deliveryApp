@@ -5,7 +5,6 @@ export default function getSales(setSale) {
   const endpoint = '/sales';
   api.get(endpoint, tokenAuth())
     .then(({ data }) => {
-      console.log(data);
       setSale(data);
     })
     .catch((err) => {

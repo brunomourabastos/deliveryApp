@@ -10,7 +10,6 @@ export default function OrderTableData({
   subtotal,
   rmButton,
 }) {
-  console.log('estou no table seller orders');
   return (
     <tr>
       <td

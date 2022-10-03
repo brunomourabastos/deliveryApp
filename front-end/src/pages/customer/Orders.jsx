@@ -10,7 +10,6 @@ const Orders = () => {
     const fetchOrdersByClient = async () => {
       const { id } = getStorage('user');
       const { data: orders } = await getOrderByClient(id);
-      console.log(orders);
       setAllOrdersByClient(orders);
     };
 
