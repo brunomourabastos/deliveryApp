@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import loginContext from './context';
+import { loginContext } from './context';
 
 function Provider({ children }) {
   const [userName, setUserName] = useState([]);

@@ -1,5 +1,5 @@
 import { createContext } from 'react';
 
-const loginContext = createContext();
+export const loginContext = createContext();
 
-export default loginContext;
+export const MainContext = createContext();

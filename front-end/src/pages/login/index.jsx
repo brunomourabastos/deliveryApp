@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getStorage } from '../../utils/localStorage';
-import loginContext from '../../context/login/context';
+import { loginContext } from '../../context/login/context';
 
 export default function Login() {
   const {
@@ -53,7 +53,7 @@ export default function Login() {
       return navigateTo('/admin/manage');
     }
     if (response.role === 'seller') {
-      return navigateTo('/seller/order');
+      return navigateTo('/seller/orders');
     }
     if (response.role === 'customer') {
       return navigateTo('/customer/products');

@@ -4,6 +4,8 @@ import Admin from '../pages/admin';
 import Customer from '../pages/customer/Customer';
 import Login from '../pages/login';
 import Register from '../pages/register';
+import SellerOrderDetails from '../pages/seller/OrderDetails';
+import SellerOrders from '../pages/seller/Orders';
 
 function AppRoute() {
   return (
@@ -17,6 +19,9 @@ function AppRoute() {
         <Route path="/customer/*" element={ <Customer /> } />
 
         <Route path="/admin/manage" element={ <Admin /> } />
+        <Route path="seller/orders" element={ <SellerOrders /> } />
+        <Route path="seller/orders/:id" element={ <SellerOrderDetails /> } />
+
       </Routes>
     </BrowserRouter>
   );
