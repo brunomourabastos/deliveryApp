@@ -25,7 +25,7 @@ export default function Login() {
   useEffect(() => {
     const data = getStorage('user');
 
-    if (data?.token && data?.token === 'customer') {
+    if (data?.role === 'customer') {
       navigateTo('/customer/products');
     }
   });
