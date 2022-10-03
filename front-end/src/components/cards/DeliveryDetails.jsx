@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import getAllSellers from '../../api/requests/getAllSellers';
 import OrderContext from '../../context/order/OrderContext';
 import createOrder from '../../api/requests/createOrder';
@@ -16,6 +17,8 @@ export default function DeliveryDetails() {
   const { cart, total } = useContext(OrderContext);
   const [loading, setLoading] = useState(false);
 
+  const navigateTo = useNavigate();
+
   const USERTOKEN = JSON.parse(localStorage.getItem('user')).token;
 
   useEffect(() => {
@@ -28,6 +31,7 @@ export default function DeliveryDetails() {
     // setUserToken(getStorage('token').toString());
     getSellers();
     setLoading(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const createSale = async () => {
@@ -38,10 +42,9 @@ export default function DeliveryDetails() {
       deliveryNumber: numberAddress,
       total,
     };
-    console.log(totalOrder);
     const createdOrder = await createOrder(totalOrder, USERTOKEN);
     const myData = await createdOrder.json();
-    console.log(myData);
+    navigateTo(`/customer/orders/${myData.id}`);
   };
 
   return (

@@ -26,7 +26,10 @@ Sales.init({
       key: "id",
     },
   },
-  totalPrice: DataTypes.DECIMAL(9, 2),
+  totalPrice: {
+    type: DataTypes.DECIMAL(9, 2),
+    defaultValue: 0
+    },
   deliveryAddress: DataTypes.STRING(100),
   deliveryNumber: DataTypes.STRING(50),
   saleDate: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },

@@ -16,7 +16,7 @@ class SalesServices {
       sellerId,
       deliveryAddress,
       deliveryNumber,
-      total,
+      totalPrice: total,
     })
       .then(async (newSale) => {
         await this.salesProductsModel.bulkCreate(products.map((product) => (
