@@ -27,8 +27,8 @@ Front-End:
 - Entre na pasta do repositório que você acabou de clonar:
   * `cd pasta-do-repositório`
 
-  2. Instale as dependências na pasta front-end e na pasta back-end [**Caso existam**]
-  *`npm install`
+  2. Instale as dependências na pasta front-end e na pasta back-end [**Caso existam**]:
+  * `npm install`
 </details>
 
 <details>
