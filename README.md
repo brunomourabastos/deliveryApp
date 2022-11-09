@@ -12,7 +12,7 @@
  <summary><strong>Tecnologias Utilizadas</strong></summary><br />
 
 Back-End:
-> Desenvolvido usando: Projeto Dockerizado. CRUD com JavaScript, utilizando ORM. Modelagem de dados com MySQL através do Sequelize; Sequelize, API REST com endpoints para consumir os models criados.
+> Desenvolvido usando: Projeto Dockerizado. CRUD com JavaScript, utilizando ORM. Modelagem de dados com MySQL através do Sequelize. API REST com endpoints para consumir os models criados.
 
 Front-End:
 > Desenvolvido usando: React.JS, JavaScript, Context API, CSS, HTML, 
