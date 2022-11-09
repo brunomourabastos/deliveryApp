@@ -15,7 +15,8 @@ function ProductBox() {
 
   useEffect(() => {
     let sum = 0;
-    const priceByItem = cart.map((element) => element.quantity * element.productPrice);
+    const priceByItem = cart.map((element) => element.quantity
+    * element.productPrice);
     priceByItem.forEach((elem) => {
       sum += elem;
     });
