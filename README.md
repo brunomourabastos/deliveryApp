@@ -67,6 +67,8 @@ Na sua máquina você deve ter:
   - As pastas `frontend/` e `backend/` devem possuir um arquivo `Dockerfile` cada, configurados corretamente para a aplicação começar a rodar. Sem essa etapa concluída o _docker-compose_ não irá funcionar.
  </details>
 
+OBS: Estilização ainda em andamento.
+
 Feito em parceria com : <br />
 <a href="https://github.com/calopessoa">Carlos Augusto</a><br />
 <a href="https://github.com/felipefraxe">Felipe Fraxe</a><br />
